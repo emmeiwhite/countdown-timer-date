@@ -51,12 +51,16 @@ giveAwayElement.textContent = `giveaway ends on ${day}, ${date} ${month}, ${year
 
 /** B) COUNT-DOWN TIMER LOGIC */
 
+// // Update countdown every second
+const countdownInterval = setInterval(() => {
+  updateCountdown(eventDate);
+}, 1000);
+
 function updateCountdown(eventDate) {
   const nowDate = new Date();
   const futureDate = new Date(eventDate); // Future date
 
   const difference = futureDate.getTime() - nowDate.getTime(); // Difference in milliseconds
-  console.log(difference);
 
   if (difference <= 0) {
     // If event has already occurred, set all countdown values to 0
@@ -64,6 +68,8 @@ function updateCountdown(eventDate) {
     document.querySelector(".hours").textContent = "0";
     document.querySelector(".mins").textContent = "0";
     document.querySelector(".secs").textContent = "0";
+
+    clearInterval(countdownInterval);
     return;
   }
 
@@ -84,8 +90,3 @@ function updateCountdown(eventDate) {
 
 // // Example usage
 const eventDate = new Date(2024, 10, 15, 13, 49, 0);
-
-// // Update countdown every second
-setInterval(() => {
-  updateCountdown(eventDate);
-}, 1000);
